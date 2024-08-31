@@ -1,6 +1,7 @@
 #include "OM108Sux.hpp"
 
 //notes are based on sharps 
+#define NOTE_FS1 30 //
 #define NOTE_G1  31 //
 #define NOTE_GS1 32 //root Abdim7
 #define NOTE_A1  33 //
@@ -62,19 +63,19 @@ OM108Sux::OM108Sux(audioMasterCallback audioMaster)
     dbg("OM108Sux: init");
     programs = new OM108SuxProgram[numPrograms];
     
-
+    DbDim7 = incDim7(NOTE_CS2, NOTE_CS4, NOTE_E4, NOTE_AS3, NOTE_G4);
     AbDim7 = incDim7(NOTE_GS1, NOTE_GS3, NOTE_B3, NOTE_F4, NOTE_D4);
     EbDim7 = incDim7(NOTE_DS2, NOTE_DS4, NOTE_FS3, NOTE_C4, NOTE_A4);
     BbDim7 = incDim7(NOTE_AS1, NOTE_AS3, NOTE_CS4, NOTE_G3, NOTE_E4);
     FDim7  = incDim7(NOTE_F2, NOTE_F4, NOTE_GS3, NOTE_D4, NOTE_B3);
     CDim7  = incDim7(NOTE_C2, NOTE_C4, NOTE_DS4, NOTE_A3, NOTE_FS4);
-    GDim7  = incDim7(NOTE_G2, NOTE_G3, NOTE_AS3, NOTE_E4, NOTE_CS4);
+    GDim7  = incDim7(NOTE_G1, NOTE_G3, NOTE_AS3, NOTE_E4, NOTE_CS4);
     DDim7  = incDim7(NOTE_D2, NOTE_D4, NOTE_F4, NOTE_B3, NOTE_GS4);
     ADim7  = incDim7(NOTE_A1, NOTE_A3, NOTE_C4, NOTE_FS3, NOTE_DS4);
     EDim7  = incDim7(NOTE_E2, NOTE_E4, NOTE_G3, NOTE_CS4, NOTE_AS4);
     BDim7  = incDim7(NOTE_B1, NOTE_B3, NOTE_D4, NOTE_GS3, NOTE_F4);
-    FSDim7 = incDim7(NOTE_FS2, NOTE_FS3, NOTE_A3, NOTE_DS4, NOTE_C4);
-    DbDim7 = incDim7(NOTE_CS2, NOTE_CS4, NOTE_E4, NOTE_AS3, NOTE_G4);
+    FSDim7 = incDim7(NOTE_FS1, NOTE_FS3, NOTE_A3, NOTE_DS4, NOTE_C4);
+    
     if (programs)
     {
         CFxBank* defaultBank = new CFxBank(numPrograms, numParams);
