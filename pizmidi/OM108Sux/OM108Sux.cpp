@@ -37,6 +37,8 @@
 #define NOTE_AS4 70 //
 #define NOTE_B4   71 //
 
+#define BASS_CHANNEL 2
+#define CHORD_CHANNEL 3
 int incDim7::id = 0;
 
 //-------------------------------------------------------------------------------------------------------
@@ -298,7 +300,6 @@ void OM108Sux::processMidiEvents(VstMidiEventVec* inputs, VstMidiEventVec* outpu
             const char in_channel  = tomod.midiData[0] & 0x0f; // isolating channel
             const char data1       = tomod.midiData[1] & 0x7f; //pitch
             const char data2       = tomod.midiData[2] & 0x7f; //velocity
-            const char out_channel = (char) FLOAT_TO_CHANNEL(fChannel);
             if ((status == MIDI_NOTEON) && (data2 == 0))
             {
                 dbg("MIDI_NOTEON data2 = 0");
@@ -311,7 +312,7 @@ void OM108Sux::processMidiEvents(VstMidiEventVec* inputs, VstMidiEventVec* outpu
                 //tomod.midiData[0]                = out_channel | MIDI_NOTEON;
                 tomod.midiData[0] = MIDI_NOTEON;
                 tomod.midiData[1]                = data1 & 0x7f;
-                outputs[0].push_back(tomod);
+                //outputs[0].push_back(tomod);
                 //check each chord if it should play the 5th
                 checkNoteOn(DbDim7, outputs, data1, tomod);
                 checkNoteOn(AbDim7, outputs, data1, tomod);
@@ -333,7 +334,7 @@ void OM108Sux::processMidiEvents(VstMidiEventVec* inputs, VstMidiEventVec* outpu
                 //tomod.midiData[0] = out_channel | MIDI_NOTEOFF;
                 tomod.midiData[0] = MIDI_NOTEOFF;
                 tomod.midiData[1] = data1 & 0x7f;
-                outputs[0].push_back(tomod);
+                //outputs[0].push_back(tomod);
 
                 //check if any of the current playing chords are not playing anymore
                 
@@ -354,25 +355,26 @@ void OM108Sux::processMidiEvents(VstMidiEventVec* inputs, VstMidiEventVec* outpu
             {
                 dbg("SYSEX");
                 dbg((int) data1);
+
                 //tomod.midiData[0] = out_channel | status;
                 tomod.midiData[0] = status;
-                outputs[0].push_back(tomod);
+                //outputs[0].push_back(tomod);
                 if (data1 == 0)
                 {
                     dbg("SYSEX Stop Playing");
                     //flag all extras as off
-                    DbDim7.isOn = false;
-                    AbDim7.isOn = false;
-                    EbDim7.isOn = false;
-                    BbDim7.isOn = false;
-                    FDim7.isOn  = false;
-                    CDim7.isOn  = false;
-                    GDim7.isOn  = false;
-                    DDim7.isOn  = false;
-                    ADim7.isOn  = false;
-                    EDim7.isOn  = false;
-                    BDim7.isOn  = false;
-                    FSDim7.isOn = false;
+                    checkNoteOff(DbDim7, outputs, DbDim7.missingNote, tomod);
+                    checkNoteOff(AbDim7, outputs, AbDim7.missingNote, tomod);
+                    checkNoteOff(EbDim7, outputs, EbDim7.missingNote, tomod);
+                    checkNoteOff(BbDim7, outputs, BbDim7.missingNote, tomod);
+                    checkNoteOff(FDim7, outputs, FDim7.missingNote, tomod);
+                    checkNoteOff(CDim7, outputs, CDim7.missingNote, tomod);
+                    checkNoteOff(GDim7, outputs, GDim7.missingNote, tomod);
+                    checkNoteOff(DDim7, outputs, DDim7.missingNote, tomod);
+                    checkNoteOff(ADim7, outputs, ADim7.missingNote, tomod);
+                    checkNoteOff(EDim7, outputs, EDim7.missingNote, tomod);
+                    checkNoteOff(BDim7, outputs, BDim7.missingNote, tomod);
+                    checkNoteOff(FSDim7, outputs, FSDim7.missingNote, tomod);
 					resetNoteMap();
                 }
                 //tomod.midiData[0] = out_channel | status;
