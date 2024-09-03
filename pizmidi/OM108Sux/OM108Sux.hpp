@@ -50,9 +50,6 @@ public:
 
 };
 
-#define NOT_PLAYING (-999)
-
-
 class OM108SuxProgram
 {
     friend class OM108Sux;
@@ -61,11 +58,8 @@ public:
     OM108SuxProgram();
     ~OM108SuxProgram() {}
 
-
-
 private:
     float fPower;
-    float fChannel;
     char name[kVstMaxProgNameLen + 1];
 };
 
@@ -87,15 +81,12 @@ public:
 
 protected:
     float fPower;
-    float fOutPBRange;
-    float fChannel;
     void checkNoteOn(incDim7& chord, VstMidiEventVec* outputs, int note, VstMidiEvent tomod);
     void checkNoteOff(incDim7& chord, VstMidiEventVec* outputs, int note, VstMidiEvent tomod);
     void resetNoteMap();
     virtual void processMidiEvents (VstMidiEventVec* inputs, VstMidiEventVec* outputs, VstInt32 sampleFrames);
-
     OM108SuxProgram* programs;
-
+    //chord info
     incDim7 DbDim7;
     incDim7 AbDim7;
     incDim7 EbDim7;
@@ -108,7 +99,8 @@ protected:
     incDim7 EDim7;
     incDim7 BDim7;
     incDim7 FSDim7;
-    std::map<int, bool> playingNotes;
+    
+    std::map<int, bool> playingNotes; //note played map
 };
 
 #endif

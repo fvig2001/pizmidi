@@ -50,7 +50,6 @@ AudioEffect* createEffectInstance(audioMasterCallback audioMaster)
 OM108SuxProgram::OM108SuxProgram()
 {
     // default Program Values
-    fChannel = CHANNEL_TO_FLOAT(2);
     fPower   = 1.f;
     //initialize constants
 

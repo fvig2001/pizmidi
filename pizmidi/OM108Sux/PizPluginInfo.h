@@ -8,9 +8,9 @@
 #define PLUG_AUDIO_OUTPUTS 0
 #define PLUG_FORCE_EFFECT  0
 #define PLUG_FORCE_INST    0
-#define PLUG_NAME          "midiPitchBendToNotes"
+#define PLUG_NAME          "OM108Sux"
 #define PLUG_IDENT         'pb2n'
-#define PLUG_VENDOR        "Insert Piz Here"
-#define PLUG_VERSION       0x10100
+#define PLUG_VENDOR        "fvig2001"
+#define PLUG_VERSION       0x10000
 
 #endif
