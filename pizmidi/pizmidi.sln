@@ -101,6 +101,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "midiMultiProgramChange", "m
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OM108Sux", "OM108Sux\OM108Sux.vcxproj", "{F72CF734-A77C-456D-BD86-F3555C9CC20E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OM108MidiTool", "OM108MidiTool\OM108MidiTool.vcxproj", "{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -696,6 +698,18 @@ Global
 		{F72CF734-A77C-456D-BD86-F3555C9CC20E}.Release|Win32.Build.0 = Release|Win32
 		{F72CF734-A77C-456D-BD86-F3555C9CC20E}.Release|x64.ActiveCfg = Release|x64
 		{F72CF734-A77C-456D-BD86-F3555C9CC20E}.Release|x64.Build.0 = Release|x64
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Debug|Win32.Build.0 = Debug|Win32
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Debug|x64.ActiveCfg = Debug|x64
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Debug|x64.Build.0 = Debug|x64
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Inst|Win32.ActiveCfg = Inst|Win32
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Inst|Win32.Build.0 = Inst|Win32
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Inst|x64.ActiveCfg = Inst|x64
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Inst|x64.Build.0 = Inst|x64
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Release|Win32.ActiveCfg = Release|Win32
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Release|Win32.Build.0 = Release|Win32
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Release|x64.ActiveCfg = Release|x64
+		{9188CD40-B4EF-44EB-80D4-AF2E347E1C24}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
