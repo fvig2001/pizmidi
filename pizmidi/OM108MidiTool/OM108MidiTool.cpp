@@ -1,41 +1,5 @@
 #include "OM108MidiTool.hpp"
 
-//notes are based on sharps 
-#define NOTE_FS1 30 //
-#define NOTE_G1  31 //
-#define NOTE_GS1 32 //root Abdim7
-#define NOTE_A1  33 //
-#define NOTE_AS1 34 //root Bbdim7
-#define NOTE_B1  35 //
-#define NOTE_C2  36 //
-#define NOTE_CS2 37 //root dbdim7
-#define NOTE_D2  38
-#define NOTE_DS2 39 //root EbDim7
-#define NOTE_E2  40
-#define NOTE_F2  41
-#define NOTE_FS2 42
-#define NOTE_G2  43
-
-//Chord notes are based on midi monitor names
-#define NOTE_F3  53 //
-#define NOTE_FS3 54 //Ebdim7
-#define NOTE_G3  55 //
-#define NOTE_GS3 56 //dbdim7, abdim7, FDim7
-#define NOTE_A3  57 //
-#define NOTE_AS3 58 //EbDim7, BbDim7
-#define NOTE_B3  59 //abdim7
-#define NOTE_C4  60 //Fdim7
-#define NOTE_CS4 61 //dbdim7, BbDim7
-#define NOTE_D4  62 //
-#define NOTE_DS4 63 //Ebdim7
-#define NOTE_E4  64 //dbdim7
-#define NOTE_F4  65 //abdim7, BbDim7, Fdim7
-#define NOTE_FS4  66 //
-#define NOTE_G4 67 //
-#define NOTE_GS4 68 //
-#define NOTE_A4  69 //
-#define NOTE_AS4 70 //
-#define NOTE_B4   71 //
 
 #define BASS_CHANNEL 2
 #define CHORD_CHANNEL 3
@@ -51,10 +15,11 @@ OM108SuxProgram::OM108SuxProgram()
 {
     // default Program Values
     fPower   = 1.f;
+    fDevice = 0.f;
     //initialize constants
 
 
-    vst_strncpy(name, "OM-108 Dim7 Fixer", kVstMaxProgNameLen);
+    vst_strncpy(name, "Omnichord Sux", kVstMaxProgNameLen);
 }
 
 //-----------------------------------------------------------------------------
@@ -62,6 +27,8 @@ OM108Sux::OM108Sux(audioMasterCallback audioMaster)
     : PizMidi(audioMaster, kNumPrograms, kNumParams), programs(0)
 {
     dbg("OM108Sux: init");
+    fPower   = 1.f;
+    fDevice  = 0.f;
     programs = new OM108SuxProgram[numPrograms];
     
     DbDim7 = incDim7(NOTE_CS2, NOTE_CS4, NOTE_E4, NOTE_AS3, NOTE_G4);
@@ -203,6 +170,16 @@ void OM108Sux::getParameterDisplay(VstInt32 index, char* text)
             else
             {
                 vst_strncpy(text, "On", kVstMaxParamStrLen);
+            }
+            break;
+        case kDevice:
+            if (fDevice < 0.5f)
+            {
+                vst_strncpy(text, "OM108", kVstMaxParamStrLen);
+            }
+            else
+            {
+                vst_strncpy(text, "QChord", kVstMaxParamStrLen);
             }
             break;
         default:
@@ -393,7 +370,7 @@ void OM108Sux::processMidiEvents(VstMidiEventVec* inputs, VstMidiEventVec* outpu
     }
 }
 
-chord::chord(int n1, int n2, int n3, int n4=-1)
+chord::chord(int n1, int n2, int n3=-1, int n4=-1)
 {
     note1 = n1;
     note2 = n2;
