@@ -379,6 +379,7 @@ public:
         note              = nnote;
         noteInterval = nnoteInterval;
         firstNote         = nfirstNote + nOffset;
+        isOn              = false;
         for (int i = 0; i < note.size(); i++)
         {
             note[i] += nOffset;
@@ -435,6 +436,33 @@ public:
         }
     }
 
+    bool isMatchingChord(std::vector<int> rNotes)
+    {
+        if (rNotes.size() != note.size())
+        {
+            return false;
+        }
+
+        for (int i = 0; i < rNotes.size(); i++)
+        {
+            //if (NoteType::getNote(rNotes[i]) != NoteType::getNote(note[i]))
+            if (rNotes[i] != note[i]) //assume input and this class will have same pitch values
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    bool getIsOn() const
+    {
+        return isOn;
+    }
+
+    void setIsOn(bool val)
+    {
+        isOn = val;
+    }
     // Overload the < operator for map use
     bool operator<(const ChordType& other) const
     {
@@ -474,23 +502,7 @@ public:
         return false;
     }
 
-    bool isMatchingChord(std::vector<int> rNotes)
-    {
-        if (rNotes.size() != note.size())
-        {
-            return false;
-        }
-
-        for (int i = 0; i < rNotes.size(); i++)
-        {
-            //if (NoteType::getNote(rNotes[i]) != NoteType::getNote(note[i]))
-            if (rNotes[i] != note[i]) //assume input and this class will have same pitch values
-            {
-                return false; 
-            }
-        }
-        return true;
-    }
+    
 
 private:
     int id; //used for bass note
@@ -499,7 +511,7 @@ private:
     int firstNote; //for use with strum plate map generation
     int firstNoteInterval; //for use with strum plate map generation, used to search for first note to start from
     std::vector<int> strumMap; //used for strum replacement
-
+    bool isOn;
 };
 
 //Tone class contains the class for each note with chords
@@ -556,6 +568,7 @@ public:
 
     }
 
+
     bool getMatch(std::vector<int> notes, std::shared_ptr<ChordType> result)
     {
         
@@ -567,7 +580,7 @@ public:
             result = om108ChordAssignment[tMajor];
             found  = true;
         }
-        /*
+        
         if (tMinor.isMatchingChord(notes))
         {
             result = om108ChordAssignment[tMinor];
@@ -603,7 +616,7 @@ public:
             result = om108ChordAssignment[tAdd9];
             found  = true;
         }
-        */
+        
     }
 
 private:
